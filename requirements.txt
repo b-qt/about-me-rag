@@ -1,4 +1,4 @@
-aptdaemon==2.0.2
+#aptdaemon==2.0.2
 argcomplete==3.6.3
 attrs==25.4.0
 autocommand==2.2.2
