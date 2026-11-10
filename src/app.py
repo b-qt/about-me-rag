@@ -34,6 +34,17 @@ except Exception as e:
     st.error(f"Error initializing RAG engine: {e}")
     st.stop()
     
+# Automatic ingestion check for cloud deployments (Placed AFTER engine is initialized)
+if not engine.collection or engine.collection.count() == 0:
+    st.info("⚡ Initializing knowledge base on first launch...")
+    try:
+        from ingestion import run_ingestion  # Ensure ingestion script has a callable function
+        run_ingestion()
+        st.success("Knowledge base successfully loaded!")
+        st.rerun()
+    except Exception as e:
+        st.error(f"Failed auto-ingestion: {e}")
+
 # Initialize chat session state first so variables exist
 if "messages" not in st.session_state:
     st.session_state.messages = []
@@ -81,11 +92,6 @@ with st.sidebar:
 for message in st.session_state.messages:
     with st.chat_message(message["role"]):
         st.markdown(message["content"])
-        #if "sources" in message and message["sources"]:
-        #    with st.expander("View Retrieved Sources"):
-        #        for idx, src in enumerate(message["sources"], start=1):
-        #            st.markdown(f"**Source {idx}:** {src['source']} | Page: {src['page']}")
-        #            st.caption(f"```{src['content']}```")
 
 # Determine if a prompt came from the chat input box OR a sidebar preset button
 prompt = st.chat_input("Ask me about my work experiences...")
@@ -112,12 +118,6 @@ if prompt:
             
             # Display the response
             st.markdown(response)
-            
-            #if retrieved_chunks:
-                #with st.expander("View Retrieved Sources"):
-                #    for idx, src in enumerate(retrieved_chunks, start=1):
-                #        st.markdown(f"**Source {idx}:** {src['source']} | Page: {src['page']}")
-                #        st.caption(f"```{src['content']}```")
                         
     st.session_state.messages.append({
         "role": "assistant", 
