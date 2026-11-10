@@ -1,4 +1,6 @@
 """ Serve the app using streamlit. This is the main entry point for the application. It will:
+    - Convert new images to text using image_converter
+    - Scrape GitHub profile and repositories using github_scrapper
     - Load documents from the data directory
     - Chunk documents into semantically similar chunks using the SemanticSplitter class
     - Generate embeddings for the chunks using a local embedding model (SentenceTransformer)
@@ -34,16 +36,45 @@ except Exception as e:
     st.error(f"Error initializing RAG engine: {e}")
     st.stop()
     
-# Automatic ingestion check for cloud deployments (Placed AFTER engine is initialized)
+# Automatic pipeline execution for cloud deployments (Images -> GitHub Scraper -> Ingestion)
 if not engine.collection or engine.collection.count() == 0:
-    st.info("⚡ Initializing knowledge base on first launch...")
+    st.info("⚡ Initializing knowledge base and running full pipeline...")
     try:
-        from ingestion import run_ingestion  # Ensure ingestion script has a callable function
-        run_ingestion()
-        st.success("Knowledge base successfully loaded!")
-        st.rerun()
+        # 1. Convert any added images to text
+        from image_converter_2 import convert_images_to_txt
+        DATA_DIR = "./data"
+        convert_images_to_txt(DATA_DIR)
+        st.success("Successfully converted images to text!")
+
+        # 2. Scrape GitHub profile and repositories
+        from github_scrapper import fetch_github_profile_and_repos
+        fetch_github_profile_and_repos()
+        st.success("Successfully fetched GitHub profile and snapshots!")
+
+        # 3. Ingest documents and GitHub snapshot into ChromaDB
+        from ingestion import read_documents, SemanticSplitter, store_chunks_in_chromadb, MODEL_NAME
+        import uuid
+        loaded_text = read_documents()
+        if loaded_text:
+            chunker = SemanticSplitter(model_name=MODEL_NAME, distance_threshold_percentile=60.0)
+            chunks = []
+            for doc in loaded_text:
+                doc_chunks = chunker.chunk_text(doc["text"])
+                for chunk in doc_chunks:
+                    chunks.append({
+                        "id": str(uuid.uuid4()),
+                        "text": chunk["chunk"],
+                        "metadata": {
+                            "source": doc["source"],
+                            "page": doc["page"],
+                            "type": doc["type"]
+                        }
+                    })
+            store_chunks_in_chromadb(chunks)
+            st.success("Knowledge base and vector database successfully loaded!")
+            st.rerun()
     except Exception as e:
-        st.error(f"Failed auto-ingestion: {e}")
+        st.error(f"Failed during auto-pipeline execution: {e}")
 
 # Initialize chat session state first so variables exist
 if "messages" not in st.session_state:
@@ -85,7 +116,7 @@ with st.sidebar:
         st.session_state.active_prompt = "What are the earliest and measurable transformations and improvements Brenda had delivered across her earliest role?"
         st.rerun()
     if st.button("🚀 Side projects"):
-        st.session_state.active_prompt = "Describe Brenda's side projects from github and their impact on her career growth and skill development.In addition, include a summary of the most relevant skills and technologies she has used in her side projects. Then add a list of the repository urls and description summaries for each side project."
+        st.session_state.active_prompt = "Describe Brenda's side projects from github and their impact on her career growth and skill development. In addition, include a summary of the most relevant skills and technologies she has used in her side projects. Then add a list of the repository urls and description summaries for each side project."
         st.rerun()
 
 # Display past chat history
