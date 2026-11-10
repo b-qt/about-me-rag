@@ -141,5 +141,3 @@ Once the application is running, click the quick-action sidebar buttons or query
 ## 📝 License
 
 Distributed under the MIT License. See `LICENSE` for more information.
-
-```
