@@ -46,3 +46,100 @@ Powered by **ChromaDB**, **SentenceTransformers**, **Ollama (`llama3.2:1b`)**, a
 ├── .gitignore                    # Excludes vector DB, cache files, and credentials
 ├── requirements.txt              # Dependencies
 └── README.md                     # Project documentation
+```
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+1. **Python 3.10+** installed on your system.
+2. **Tesseract OCR Engine** installed locally:
+* **Linux (Ubuntu/Debian):** `sudo apt-get install tesseract-ocr`
+* **macOS:** `brew install tesseract`
+
+
+3. **Ollama** installed and running with `llama3.2:1b`:
+```bash
+ollama pull llama3.2:1b
+ollama serve
+```
+
+
+
+### Installation
+
+1. **Clone the repository:**
+```bash
+git clone [https://github.com/b-qt/YOUR_REPOSITORY_NAME.git](https://github.com/b-qt/YOUR_REPOSITORY_NAME.git)
+cd YOUR_REPOSITORY_NAME
+```
+
+
+2. **Create and activate a virtual environment:**
+```bash
+python -m venv venv
+source venv/bin/activate  # On Windows use: venv\Scripts\activate
+
+```
+
+
+3. **Install dependencies:**
+```bash
+pip install -r requirements.txt
+```
+
+
+
+---
+
+## ⚙️ Running the Pipeline
+
+### Step 1: Preprocess Screenshots & OCR (Optional)
+
+Convert document screenshots (PNG/JPG) into continuous-formatted `.txt` files in `./data/`:
+
+```bash
+python src/image_converter.py
+```
+
+### Step 2: Fetch GitHub Repositories Snapshot (Optional)
+
+Generate a clean snapshot of public GitHub profile metadata and project READMEs:
+
+```bash
+python src/github_scraper.py
+```
+
+### Step 3: Run Document Ingestion
+
+Load, chunk, embed, and store all documents inside ChromaDB:
+
+```bash
+python src/ingestion.py
+```
+
+### Step 4: Launch the Web UI
+
+Start the Streamlit web application:
+
+```bash
+streamlit run src/app.py
+```
+
+---
+
+## 🧠 Mind Map V2 Query Examples
+
+Once the application is running, click the quick-action sidebar buttons or query the chatbot directly:
+
+* **Career Evolution:** *"Give me a summary of Brenda's career evolution using the Where, How, Who, and Why framework."*
+* **Quantifiable Impact:** *"What measurable transformations and system reliability improvements has Brenda delivered across her roles?"*
+* **Role Alignment:** *"How does Brenda's data engineering background map to product data analyst requirements at target companies?"*
+
+---
+
+## 📝 License
+
+Distributed under the MIT License. See `LICENSE` for more information.
+
+```
