@@ -1,0 +1,13 @@
+# Python bytecode & cache
+__pycache__/
+*.pyc
+
+# Local ChromaDB Vector Database (Do not upload large binary db files)
+data/chroma_db/
+
+# Environment files
+.env
+.DS_Store
+
+# Streamlit cache
+.streamlit/

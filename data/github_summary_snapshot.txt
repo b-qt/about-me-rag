@@ -1,0 +1,266 @@
+--- GITHUB PROFILE SUMMARY ---
+Username: b-qt
+Name: Tebid Quinsy
+Bio: Data scientist
+Public Repositories Count: 12
+Profile URL: https://github.com/b-qt
+
+--- PUBLIC REPOSITORIES AND SIDE PROJECTS ---
+Project Name: b-qt
+Primary Language: Python / SQL
+Repository URL: https://github.com/b-qt/b-qt
+Project Description: About Me
+README Summary:
+### Hello there 👋
+
+I'm Brenda.   
+I'm a Data Scientist and Web Developer 🇨🇲🇪🇦 because it's fun to see many different perspectives..  
+I'm interested in:
+```
+- Data Art and Visualization
+- Data Analysis
+```    
+ 
+I have a BSc in Information Communication Technology from the ICT University.   
+After my BSc, I did an internship in the Banking and Finance sector and got interested in Big Data thinking it would be a fine cross between _design_ and _tech_.   
+So I went in for an MSc in Data Science. During the MSc, I got wind of Data Art and Data Visualization and _hurray_ 🎊    
+Then, I went in for another MSc in FrontEnd Developement to get better at design and _Chef's kiss_ 🥳
+
+## Data Analysis
+|Project| Project Description | Project Link|
+|---|---|---|
+|🥾🏖️ Hitch Hiker's travel guide| Data analysis to explore data taken from Numeo to better understand what travelers should consider when travelling in order to make better financial decisions | [![Project](https://img.shields.io/badge/Project-green)](https://b-qt.github.io/Hitch-Hiker-s-Travel-Guide/)|
+|Reddit r/technews| A javascript realtime word analysis of data pulled using the reddit api from the r/technews subreddit for the current month, Looking at how often posts are reposted and what the population is talking about currently | [![Project](https://img.shields.io/badge/Project-green)](https://b-qt.github.io/technews/)|
+|Depression Anxiety Stress Scale | I chose to look at these 3 mental illnesses which in my opinion are the 
+----------------------------------------
+Project Name: news-monitor
+Primary Language: Python
+Repository URL: https://github.com/b-qt/news-monitor
+Project Description: Stop reading the news, start understanding the sentiment!!
+README Summary:
+# 🏗️ The Spanish Market Intelligence Refinery 2026
+
+![Status](https://img.shields.io/badge/Status-In%20Production-success?style=for-the-badge&logo=statuspage)
+![Market](https://img.shields.io/badge/Market-Spain-blue?style=for-the-badge&logo=googlemaps)
+![Stack](https://img.shields.io/badge/Stack-Modern%20Data%20Refinery-orange?style=for-the-badge&logo=databricks)
+
+> **"Turning the digital sludge of the Spanish job market into high-purity strategic gold."**
+
+## 🌟 Project Vision
+The goal is to ingest data from google RSS feeds in Spain to  sort it into tech, economy (finance) and real estate news. The data is then enriched with sentiment analysis and visualized in a dashboard to provide real-time insights into the "mood" of the Spanish economy.
+
+The architecture is built on the principle of **"Purity of Character" (1 Tim 4:12)**: ensuring that every data point served to the dashboard is honest, tested, and deduplicated.
+
+---
+
+## 🍽️ The "Refinery" Architecture (How it Works)
+Our system follows a **Decoupled Sibling Structure**, separating Ingestion from Transformation.
+
+1.  **The Ingestion (Mage AI):** Our **Head Chef**. Every 6 hours, it bypasses "Walled Gardens" using an RSS loophole to pull news postings.
+2.  **The AI Enrichment (Robertuito NLP):** Our **Specialist Saucier**. A specialized AI model trained on native Spanish text that analyzes the "Mood" of every headline with 99% accuracy.
+3.  **The Warehouse (PostgreSQL/DuckDB):** Our **Vault**. A dual-storage strategy optim
+----------------------------------------
+Project Name: job-hunter-pipeline
+Primary Language: Python
+Repository URL: https://github.com/b-qt/job-hunter-pipeline
+Project Description: Turning the job hunt into a quiet pipeline 
+README Summary:
+# 📰 (Northern) Spain Job Monitor 2026
+
+![Status](https://img.shields.io/badge/Status-Live%20Refinery-success?style=for-the-badge&logo=statuspage)
+![Market](https://img.shields.io/badge/Focus-Bilbao%20%26%20Gijón-blue?style=for-the-badge&logo=googlemaps)
+![Orchestration](https://img.shields.io/badge/Orchestration-Mage.ai-green?style=for-the-badge&logo=python)
+![DBT](https://img.shields.io/badge/Transformation-dbt-orange?style=for-the-badge&logo=dbt)
+![Visualization](https://img.shields.io/badge/Visualization-Streamlit-red?style=for-the-badge&logo=streamlit)
+
+
+> **"Turning the noise of the Spanish market into high-purity insights."**
+
+---
+
+### 🌟 The Vision
+In a world of information overload, this project acts as a **Digital Refinery**. It automatically monitors the pulse of the Spanish news cycle and the tech job market (specifically for my upcoming move to **Bilbao**), using AI to distinguish between "Market Noise" and "Market Mood."
+
+---
+
+### 🍽️ The "Data Kitchen" (How it works)
+*For the non-techies: Imagine a high-end restaurant in the 22@ district.*
+
+<details>
+<summary><b>Step 1: The Ingestion (The Head Chef) 👨‍🍳</b></summary>
+Our system goes to the markets (LinkedIn, InfoJobs, Google News) every 6 hours to find the freshest headlines.
+</details>
+
+<details>
+<summary><b>Step 2: The Transformation (The Bouncer) 🕴️</b></summary>
+Using <b>dbt</b>, we run 13 different quality tests. We remove duplicates and fix messy dates. If the data isn't "Pure" (p
+----------------------------------------
+Project Name: 3dScene
+Primary Language: JavaScript
+Repository URL: https://github.com/b-qt/3dScene
+Project Description: No description provided.
+README Summary:
+<pre>
+  I created a 3D Scene as an ongoing project.   
+  It will be ongoing until I'm satisfied with how it looks, the loading speeed, fps and interactivity.  
+  Feel free to explore and try to break it ... and When you do please leave me a message <3
+</pre>
+
+----------------------------------------
+Project Name: Hitch-Hiker-s-Travel-Guide
+Primary Language: Jupyter Notebook
+Repository URL: https://github.com/b-qt/Hitch-Hiker-s-Travel-Guide
+Project Description: what are the main things we should consider when making trips?
+README Summary:
+# Hitch-Hiker's-Travel-Guide
+[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)
+
+## Goal | Problem statement 🥇
+We all like to travel. There are some people who plan trips and others leave on a whim without tangible plans.   
+For this project, my goal was to provide information and provide a summary which will help out target audience make effective decisions while travelling.
+
+## Target Audience 🎯
+  - Hitch Hikers 🥾. 
+  <!--- ![Hitch hikers](https://github.com/lagom-QB/Hitch-Hiker-s-Travel-Guide/blob/gh-pages/Group%201.png)-->
+  <img width="1920" src="https://raw.githubusercontent.com/lagom-QB/Hitch-Hiker-s-Travel-Guide/gh-pages/Group%201.png">
+  - Holiday makers 🏖️.  
+  <!--- ![Holiday makers](https://github.com/lagom-QB/Hitch-Hiker-s-Travel-Guide/blob/gh-pages/Group%202.jpg)-->
+  <img width="1920" src="https://raw.githubusercontent.com/lagom-QB/Hitch-Hiker-s-Travel-Guide/gh-pages/Group%202.jpg">
+
+## What have others done?
+Numbeo is a cost of living database. It is a crowd-sourced global database of quality of life data including housing indicators, perceived crime rates, healthcare quality, transport quality, and other statistics.   
+<img width="1920" alt="image" src="https://user-images.githubusercontent.com/28558929/183379570-64f54692-d2e3-47e7-9700-ba102c20fd20.png">   
+Though the data is available on Numbeo and is reliable b
+----------------------------------------
+Project Name: Zines
+Primary Language: Python / SQL
+Repository URL: https://github.com/b-qt/Zines
+Project Description: Tutorials in the form of quick sketches
+README Summary:
+# Zines
+Tutorials in the form of quick sketches   
+
+<p style="display:flex;">
+   <a href="https://github.com/b-qt/Zines/raw/main/basics/starting_a_project.jpeg">
+       <img src="https://github.com/b-qt/Zines/raw/main/basics/starting_a_project.jpeg" height="150" width="150" title="Starting a new project" />
+   </a>
+   <a href="https://github.com/b-qt/Zines/raw/main/basics/data_modeling.jpeg">
+      <img src="https://github.com/b-qt/Zines/raw/main/basics/data_modeling.jpeg" width="150" title="data modeling" />
+   </a>
+</p>
+
+
+----------------------------------------
+Project Name: BeautifulSpreadsheets
+Primary Language: Jupyter Notebook
+Repository URL: https://github.com/b-qt/BeautifulSpreadsheets
+Project Description: No description provided.
+README Summary:
+# Beautiful Spreadsheets Projects
+
+The team behind infographics powerhouse Information is Beautiful maintains a catalog of the data used in 130+ of their projects, going back to 2009. The entries links to spreadsheet tables that present original research as well as numbers drawn more directly from academic studies, government reports, Wikipedia, and other sources.   
+Recent topics include plastic waste, large language models, and Marvel movies.
+
+## Mini-Projects
+
+
+| Project                 | Description                 | Status                 | Updates|
+|-------------------------|-----------------------------|------------------------|--------|
+| **Anomaly detection**   | Identify unusual patterns in the data or potential data manipulation inaccuracies in the data used for this publication. | 🔄 _31.10_ <br> ✅ _05.11_   | * Make the tool more general for every dataset link inserted |
+| **Automated Data Storytelling Generator** | Create a tool that automatically generates data stories based on the datasets in the catalog. Using _NLP_, extract key insights and trends from the datasets then generate narrative texts that explain the data in an engaging manner, using summarization techniques and/or template-based storytelling. |⛔ |  |
+| **Time Series Analysis** | Predict future trends, looking at how topics and data sources have evolved over time and what topics are likely to return.  |❌ _31.10.24_| **CANCELLED**|
+| **Data Quality Assessment tool** | A tool that assesses the comple
+----------------------------------------
+Project Name: M12-NLP
+Primary Language: Jupyter Notebook
+Repository URL: https://github.com/b-qt/M12-NLP
+Project Description: Deep Learning
+README Summary:
+# M12
+Deep Learning
+
+As a result of the course, we had to: \
+● Learn to apply Deep Learning techniques in practice\
+● Get familiar with both fundamental and most recent approaches in Natural Language Processing and Reinforcement Learning\
+● Get ready to face the real world problems and to apply the Deep Learning techniques to them\
+● Gain essential experience with PyTorch framework \
+
+----------------------------------------
+Project Name: Build-Up-Nepal
+Primary Language: Python / SQL
+Repository URL: https://github.com/b-qt/Build-Up-Nepal
+Project Description: No description provided.
+README Summary:
+[Project Details](https://www.vizforsocialgood.com/join-a-project/2021/12/28/build-up-nepal)
+
+[Result on Tableau](https://public.tableau.com/app/profile/quinsy.brenda/viz/BuildUpNepal_16438609135740/Dashboard1)
+
+----------------------------------------
+Project Name: dv_dass
+Primary Language: Jupyter Notebook
+Repository URL: https://github.com/b-qt/dv_dass
+Project Description: The goal here is to gain and provide more insights to silent killers like Depression, Anxiety and Stress and to represent this data in a way which is more engaging is important to those affected and those susceptible so they know how to identify, deal with their situations and when to throw in the towel to ask for help.
+README Summary:
+<a href="https://www.repostatus.org/#wip"><img src="https://www.repostatus.org/badges/latest/wip.svg" alt="Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public." /></a>
+
+<!---[![Project Status: Active – The project has reached a stable, usable state and is being actively developed.](https://www.repostatus.org/badges/latest/active.svg)](https://www.repostatus.org/#active)) ---->
+
+# DASS
+
+This project concerns analysis of data pertaining to Answers to the Depression Anxiety Stress Scale using data from [openpsychometrics.org](https://openpsychometrics.org/_rawdata/) responses of 2018.
+
+## Project Intro/Objective
+
+The purpose of this project is to gain and provide more insights to silent killers like Depression, Anxiety and Stress. __Silent killers__ in this context refer to diseases with no obvious symptomps or indications.
+Representing this data in a way which is more engaging is important to those affected and those susceptible so they know how to identify, deal with their situations and when to throw in the towel to ask for help.
+
+### Methods Used
+
+* Inferential Statistics  
+* Data Exploration and Manipulation  
+* Data Analysis  
+* Data Modelling  
+* Data Visualization  
+
+## Project Description
+
+Working with [open data](https://openpsychometrics.org/_rawdata/) under “Answers to the Depression Anxiety Stress scales”, the goal is to provide an overview of DASS (Depression Anxiety Stress Scale) sco
+----------------------------------------
+Project Name: Dear-Abby
+Primary Language: Jupyter Notebook
+Repository URL: https://github.com/b-qt/Dear-Abby
+Project Description: Visualising trends in data sent over the years to cable network "Dear Abby", to view trends and changes in topics of conversation.
+README Summary:
+# Dear-Abby
+The goal of this exercise is:  
+1. to analyze and visualize trends in data sent over the years to cable network "Dear Abby", 
+2. to view trends and changes in topics of conversation.
+3. To show case my skills in data anlysis and visualization using python and d3js.
+  
+---
+## Process
+- Get and download the data from datasource
+- Looked through the data in libreoffice and formulated the question i wanted to answer from the data.  "What sort of questions were people asking the broadcast channel through time? How did these topics change?"
+- Chose to work with python in jupyter notebook to do basic exploration of the data.   
+While exploring, I realised that:  
+              - The most important columns were the questions column and the day, month and year column.  
+              - I could merge the day, month and year columns to a single column called date in order to establish a timeline.   
+- Decided to do text summarization on the questions to get an idea of the topics (This took FOR EVER).   
+- I  have to do a sort of clustering in order to get similar topics together.   
+- Summarize the data and then Visualize with d3js.
+
+---
+## What was learned from the data?
+
+---
+## Skills practiced
+- Data Exploration and analysis
+- D3js for visualization
+
+----------------------------------------
+Project Name: portfolio-scene
+Primary Language: JavaScript
+Repository URL: https://github.com/b-qt/portfolio-scene
+Project Description: 3d Scene
+README Summary: Standard repository setup.
+----------------------------------------

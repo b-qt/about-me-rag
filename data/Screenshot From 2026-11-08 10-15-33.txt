@@ -1,0 +1,62 @@
+AlR
+
+APPS About Air Apps At Air Apps, we believe in thinking bigger—and moving faster. We're a farmily-founded cormnpany on a mission to create the world's first Al-powered Personal & Entrepreneurial Resource Planner (PRP), and we need your passion and arnbition to help us change how people plan, work, and live. Born in Lisbon, Portugal in 2018—and now with offices in both Lisbon and San Francisco—we've remained self-funded while reaching over 100 million downloads worldwide. Our long-term focus drives us to challenge the status quo every day, pushing the boundaries of Al-driven solutions that truly make a difference. Here, you'll be a creative force, shaping products that empower people across the globe. Join us on this journey to redefine resource management—and change lives along the way. The Role As a Data Analyst at Air Apps, you will be responsible for analyzing and interpreting data to drive business insights and optimize product performance. You will create reports, dashboards, and performance metrics to help teams make informed decisions and improve user experience. This role requires 3 data-driven mindset, strong analytical skills, and experience with visualization tools to turn cornplex data into actionable insights.
+
+* This is 2 fully onsite position, based at our office in Lisbon, where you will
+collaborate closely with cross-functional teams in person and contribute to a dynamic and fast-paced environment. We are open to support with relocation efforts.
+
+Responsibilities
+
+* Analyze user behavior, product performance, and key business metrics to
+identify trends and opportunities.
+
+* Create and maintain interactive dashboards and reports using tools like
+Tableau, Looker, Power Bl, or Google Data Studio.
+
+* Collect, clean, and structure large datasets to ensure accuracy and usability.
+
+© Define and track KPIs for marketing. product, and business performance.
+
+* Work with SQL, Python, or R to extract, analyze, and manipulate data.
+
+* Collaborate with product managers, engineers, and marketing tearns to provide
+data-driven insights.
+
+* Conduct A/B testing and experiment analysis to improve product features and
+user engagement.
+
+* Identify bottlenecks and opportunities in user journeys and customer funnels.
+
+* Present findings in a clear and compelling way to stakeholders and leadership
+teams.
+
+* Stay up to date with industry trends, analytics best practices, and emerging
+data tools.
+
+Requirements
+
+* Around 3+ years of experience in data analysis, business intelligence, or a
+related field.
+
+* Proficiency in SQL for data querying and manipulation.
+
+* Experience with data visualization tools (Tableau, Looker, Power Bi, Google
+Data Studio).
+
+* Strong analytical skills with experience in Python or R for data analysis.
+
+* Knowledge of A/B testing methodologies and statistical analysis.
+
+* Experience with Google Analytics, Mixpanel, Amplitude, or similar user
+analytics tools.
+
+* Strong problem-solving skills and ability to communicate insights to non-
+technical stakeholders.
+
+* Experience working with large datasets and cloud-based data warehouses
+(BigQuery, Redshift, Snowflake).
+
+* Familiarity with ETL processes and data pipeline optimization is a plus.
+
+* Ability to work in a fast-paced, data-driven environment and manage multiple
+projects.

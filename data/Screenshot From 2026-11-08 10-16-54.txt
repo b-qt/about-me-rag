@@ -1,0 +1,53 @@
+Description En BETWEEN te ofrecemos las oportunidades que necesitas para alcanzar tus objetivos profesionales. Si quieres desarrollar tus capacidades en IT e Ingenieria jeste es tu proximo destino! Damos soporte en una gran variedad de areas como Firmware, Software, BI, Disefio, Project Management y muchas mas. Ademas, desarrollamos soluciones tecnologicas a medida desde nuestros BETWEEN Labs. Estamos buscando un Data Engineer / Data Analyst para ampliar uno de nuestros equipos en Sant Cugat del Vallés. Te incorporaras a un equipo internacional donde trabajaras con grandes voltimenes de datos y participaras en proyectos estratégicos relacionados con analitica, reporting y gestion del dato. Tendras la oportunidad de colaborar con diferentes areas de negocio, contribuyendo a transformar la informacion en conocimiento que facilite la toma de decisiones. Pd Estas seran tus funciones principales:
+
++ Desarrollaras y optimizaras consultas complejas en SQL para la extraccion y analisis de datos.
+
+« Trabajaras con grandes bases de datos, garantizando la calidad y consistencia de la informacion.
+
++ Realizaras procesos de extracclén, limpleza y transformacién de datos procedentes de distintas fuentes.
+
++ Diseflaras y mantendras pipelines de datos para asegurar la disponibilidad y trazabilidad de la informacion.
+
++ Utilizaras Python para automatizar procesos y preparar datos para su analisis.
+
++ Crearas y evolucionaras dashboards e informes en Power BI para diferentes stakeholders.
+
++ Colaboraras con equipos multidisciplinares para entender necesidades de negocio y transformarlas en soluciones basadas
+
+en datos.
+
+« Participaras en iniciativas de mejora continua relacionadas con la gestion y explotacion del dato. ~Cémo lo haras?
+
+« Tendras contrato indefinido y horario flexible
+
++ Podras trabajar en modelo hibrido. Trabajaras 3 dias a la semana en la oficina de Sant Cugat del Vallés. El resto de dias
+
+puedes teletrabajar.
+
+« Tendras un PC y los periféricos necesarios para el desarrollo de tu trabajo.
+
+« Trabajaras en un entorno internacional. Por ser BETWEENER obtendras estos beneficlos:
+
++ Seguro médico con Alan.
+
+« Oportunidades de formacidén: Idiomas, Certificaciones, Bootcamps y mucho mas.
+
++ Multitud de eventos: BETWEEN Night, Torneo de Padel y mucho mas.
+
++ Retribucion flexible (restaurant, transporte, guarderia).
+
++ Incentivos por validar o recomendar talento. Requirements Requisitos imprescindibles:
+
++ Experiencia de 2 a 3 afios en entornos de datos, BI 0 analitica.
+
++ Nivel de Inglés avanzado (B2-C1) para comunicaci6n oral diaria (entorno internacional).
+
++ Nivel avanzado de SQL.
+
++ Experiencia en extraccion, limpieza y transformaci6n de datos.
+
++ Conocimientos de Python aplicados al tratamiento de datos.
+
++ Experiencia en desarrollo de informes y dashboards con Power BI.
+
++ Experiencia en creacion y mantenimiento de pipelines de datos.

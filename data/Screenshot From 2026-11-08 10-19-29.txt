@@ -1,0 +1,31 @@
+Position Summary As a Cimate Mitigation Data Engineer st Open Earth Foundation, you build the data cities use to plan, act on and track their climate goals. That starts with Qreenhouse-gas inventories cities can trust, and runs through estimating what each action coulld cut, to monitoring progress and reporting it. Cities need to know where their emesions come from, report them to frarmeworks such as the GHG Protocdl for Cities (GPC) and CD®, and track progress over time. You
+ov that mitigation record: the methods, the inputs, and the models behind the
+numbers. A Data Platform Engineer owns the shared warehouse and the pipeline platform. You decide whether a calculation is right, which dataset it should use, and where the Qeps ore. Together you put that domain on a platform other Digital Service . applications can use. Colleagues on the data team cover climate risk and adaptation. This role is focused on mitigation This & a mid-level role. You ship datasets and reviewed methods with your manager. You are not expected to design the warehouse architecture. Essential Functions and Specific Duties: ® Design and maintain the data models for emissions inventories, activity data, emission factors, sources, and methodologies ® Build andrun pipeln es that ingest national, lobe anid city-provided datasets into those models, with tests, versioning, and clear lineage @ Review technical methodologies for emesions calculations check the logic, data inputs, assumptions, and global-warming-potential choices, and flag gers @ Encode reporting rules so outputs align with the GPC and with other frameworks cities submit to, including COP where relevant
+© Snapshot factors and methods onto results so a historical inventory stays
+reproducible when a catalogue changes ister
+© Set data-quality checks and compare results against independent sources
+© Document data models, pipelines, and methods so partners and colleagues
+Docurismt data models pipelines and meth Pal feo
+© Work with the Systerns Data Engineer so domain models land in the shared
+warehouse as contracts, not as a private schema
+© Support cities and partners with emissions profiles and with questions about
+where a number came from
+© Use Al tools for dataset discovery, cleaning, documentation, and method
+review, and check the output before it is used
+© Actively participate in team building and culture development activities at
+Open Earth Foundation Qualifications:
+© 5+ years in date engineering or a closely related role
+® Strong Python and sSQu
+© Working knowledge of greenhouse-gas accounting frameworks, such as the
+GHG Protocol for Cities {GPC} or IPCC methods
+© Solid understanding of relational databases and schema design (for example
+PostgreSQL)
+© Experience with at least one pipeline of orchestration tool [for example dbt,
+Airflow, Dagster, Mage, or similar)
+© Experience with cloud platforms (AWS, GCP, or Azure) and data warehouses
+(for example BiaQueny Snowdlake, Redshift, or PostgreSQL used as an analytical store} Nice to have @ Hands-on expenence building or reviewing city of national emesions inventones
+© Emsion-factor catalogues, notation keys (IE, NE, NO, C}, and data-quality tiers
+© Familiarity with GPC sectors, scopes, and BASIC / BASIC+ reporting levels
+© CDP, Common Reporting Format, or eCRF reporting
+© =Cecspatial data and tools (PostGIs, GeoPandas) for allocating activity data to
+cities

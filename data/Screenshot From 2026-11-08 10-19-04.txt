@@ -1,0 +1,60 @@
+Position Summary As a Ptatform Data Engineer, at Open Earth Foundation you design and build the shared date platform behind a global climate data reporting and analysis service for cities. Cities will use this service to report emissions and climate risks, plan actions, and trock progress on actions and pregects. We ore busking Rah a gicbel cay clarete network Several interoperal spplications linventory, risk assessment, planning, reporting and monitonng) will re one common data infrastructure, and you will help design and build it. At its core is a date warehouse that receives reported data from thousands of cities, soit can be validated, reviewed and analysed across cities and over time, plus the pipeline platform that feeds it. You model complex data [inventones, nisk 4 assessments, action plans, project Bropress, ty context Gata, geospatial boundaries, and the links between them) and publish schernas other tearns can buald against. Pipelines need to be reusable, tested and versioned, built from shared patterns and clear conventions, so each new dataset follows the sarne path. You work with domain specialists in mitigation and climate tek who own the metnod and domain mmociets and with software engineers bull te ications. You own how data is stored, versioned, and served. own what the emissions numbers mean. The moved vores role you design ‘and ship substantial pieces of the platform with your manager. You are not expected to set the whole architecture alone. Essential Functions and Specific Duties:
+
+@ Design and evolve the analytical warehouse the Digital Service applications share: layered storage |raw, modelled, reporting), with schemas published as contracts
+
+® Model complex relational and analytical data in PostgreSQL, including prospatial data in PostGls where the model needs it: boundaries, activity data,
+
+tors, and the hestory of how a record changed
+
+© Build reusable pipeline patterns for ingestion, transformation, tests, versioning,
+and lineage, so a new source plugs into the platform instead of becoming a
+one-off script
+
+@ Keep ao clean split between operational databases (what an application writes while someone is working) and the analytical warehouse (the curated record
+other applications read)
+
+© Define stable interfaces to the warehouse and stop those contracts from
+drifting as products split into services
+
+© Set data-quality checks, observability, and reproducibility so any served
+number can be traced to the dataset version that produced it
+
+@ Partner with the Mitigation Data Engineer te land domain modes’: in the werehouse without bending the pl: around a single use case
+
+©@ «Partner with software engineers on access patterns, performance, and how
+applications consume warehouse data
+
+. Derlay and run pipelines on cloud data infrastructure, with support from the
+
+© Use Al tools to speed up modeling, pipeline work, tests, and documentation,
+and review what those tools trodes before Rt ships
+
+Other:
+
+© Actively participate in team building and culture development activities at
+Open Earth Foundation — .
+
+© Document mode&, pipelines, and conventions so partners and colleagues can
+follow them without you in the room
+
+Qualifications:
+
+© 3 yeors in data engineering or a closely related role
+
+© Strong SQt and data modeling: you have designed schernas cther people
+build on, not only written queries against someone cke’s
+
+* Strong Python
+
+© Solid experience with PostgreSQL as an analytical store, or with a cloud
+warehouse (BigQuery, Snowflake, Redshift, or similar) and a willingness to work primarily in PostgreSQL
+
+© Experience with at least one transformation or orchestration tool (abt, Airflow,
+Dagster, Mage, or similar)
+
+© Experience with a cloud platform (AWS, CCP, or Azure}
+
+@ You have built pipelines or 8 data platform used by more than one application
+orteam
+
+Nice to have @ = PostGls or other geospatial tooling

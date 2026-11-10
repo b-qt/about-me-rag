@@ -1,0 +1,12 @@
+services:
+  academiclogs:
+    build: .
+    container_name: academiclogs
+    #command: streamlit run app.py
+    ports:
+      - "8501:8501"
+    volumes:
+      - ./data:/app/data
+      - ./src:/app/src
+    environment:
+      - OLLAMA_HOST=http://host.docker.internal:11434

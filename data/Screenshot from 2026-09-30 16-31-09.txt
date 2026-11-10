@@ -1,0 +1,47 @@
+About the job
+
+* Role: Data Visualization Specialist (Remote)
+
+* Location: Remote (Work From Anywhere}
+
+Role Overview:
+
+We are hiring for one of our clients, seeking a Subject Matter Expert - Chart & Data Visualization Analysis to work ona full time basis. The role involves analyzing and interpreting chart patterns, data trends, and visualization outputs to support decision-making processes. Candidates will collaborate with cross-functional teams to refine data representations and ensure clarity in complex datasets.
+
+Key Responsibilities:
+
++ Analyze and interpret chart patterns, data trends, and visualization outputs to identify key insights.
+
++ Collaborate with stakeholders to refine data representations and improve clarity in visualizations.
+
++ Develop and maintain documentation for chart and visualization standards and best practices.
+
++ Provide guidance on data visualization techniques to enhance the accuracy and usability of reports.
+
++ Assist in troubleshooting and optimizing existing visualization tools and dashboards.
+
+Required Skills & Qualifications:
+
++ Proficiency in data visualization tools such as Tableau, Power BI, or similar platforms.
+
++ Strong analytical skills with the ability to interpret complex datasets and trends.
+
++ Experience in creating clear, actionable, and visually effective charts and graphs.
+
++ Knowledge of data modeling and visualization best practices.
+
++ Ability to communicate technical insights to non-technical stakeholders.
+
++ Familiarity with statistical analysis and data interpretation methodologies.
+
++ Experience with SQL or other data querying languages is a plus.
+
++ Attention to detail and a methodical approach to problem-solving.
+
+More About the Opportunity:
+
+This role offers a unique opportunity to work with a global leader in the Data Infrastructure and Analytics industry, contributing to the development of high-impact visualizations that drive strategic decisions. The position supports projects with measurable outcomes in data clarity and decision support.
+
+Equal Opportunity Employer:
+
+We hire based on skills and expertise. All qualified candidates are welcome regardless of background, experience, or prior employment history. Applications are reviewed solely on demonstrated technical ability and qualifications. Apply Now

@@ -1,0 +1,44 @@
+EOEOEOEOEOEOE_E_E_—_—_—_—_——EOEOEOEOOEOOEOEEOOEOEOEEOOEOEOee_—_—_— Data Analyst We are looking for a talented Data Analyst to join our team. You will be leveraging data to generate impactful insights for strategic purposes. This is a pivotal position to bring the business to the next level, you will support one of our business domain tearns using analytics to drive better decisions at Perk. What you will do:
+
+* Work with other Data Analysts, Analytics Engineers, Data Scientists and
+Engineers in our team to generate advanced analysis that answers key business questions and unlocks opportunities.
+
+* Explore data from different sources, turning it into information, information into
+insight and insight into decisions
+
+* Design and develop metrics, dashboards, experiments and analyses to track
+and assess the impact of new initiatives and features.
+
+* Develop data frameworks and products to drive insights and behavioural
+analysis.
+
+What you need:
+
+© 2+ years of relevant experience interpreting data in data analytics or data
+science role, including relevant tools, techniques and technology
+
+* Excellent communication skills, both written and spoken, in English
+
+You will need to prove the following:
+
+* You are 3 Master using SOL for data querying, transformation and modelling -
+experience with dbt is a strong plus.
+
+* Experience with statistical concepts and packages (Python / R)
+
+* Experience with data visualisation and BI tools (Looker)
+
+* Data storytelling and stakeholder management experience
+
+* The desire to work in an international environment, with minimal direction,
+alongside highly engaged individuals.
+
+Al at Perk
+
+Al is embedded in how we work across every function. The tools you'll use day-to-day are Al-enabled so you can move faster and spend more time on the work that matters. In practice, that means using Al to research and prioritise accounts, draft and refine outreach, handle custorner interactions more effectively, synthesise information, and cut through shadow work - the invisible tasks that pull people away from the work only they can do - so you can focus on relationships and outcomes. How We Work
+
+At Perk, we take an IRL-first approach to work, where our tearm works together in- person 3 days a week. As such, this role requires you to be based within commuting distance of our hubs. We fundamentally believe in the value of meeting in real life to improve connectivity, productivity, creativity and ultimately making us a great place to work.
+
+For certain roles, we can help with relocation from anywhere in the world, English is the official language at the office. Please submit your resume in English if you choose to apply. Do not forget to submit an updated portfolio and/or resume.
+
+Perk is a global cornpany with a diverse customer base, and we want to make sure the people behind our product reflect that. We're an equal opportunity employer, which means you're welcome at Perk regardless of how you look, where you're from, or anything else that makes you, well, you.
