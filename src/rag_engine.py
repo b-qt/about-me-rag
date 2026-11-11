@@ -149,7 +149,7 @@ class LocalRAGEngine:
             print(f"\n\nNo Gemini API key found. Using local LLM endpoint ({OLLAMA_ENDPOINT}) for response generation ...")
             return self._query_local_llm(prompt)
         
-    def generate_responses(self, query: str, chunks: list):
+    def generate_responses_002(self, query: str, chunks: list):
         if not chunks:
             return "No information on this topic"
         
@@ -251,6 +251,108 @@ class LocalRAGEngine:
                 f"2. Have you added your GEMINI_API_KEY in Streamlit Cloud Secrets?"
             )
 
+    def generate_responses(self, query: str, chunks: list):
+        if not chunks:
+            return "No information on this topic"
+        
+        # Build strictly partitioned context blocks
+        context_blocks = []
+        for c in chunks:
+            src = c['source']
+            content = c['content']
+            
+            if "Resume" in src or "Data Engineer" in src:
+                doc_desc = "OFFICIAL RESUME (Verified employment history: Emerging Engineering, UNDP, GIMAC-BEAC)"
+            elif "Offer Letter" in src:
+                doc_desc = "OFFER LETTER (Sagaci Research - Senior Data Analyst role starting May 2026)"
+            elif "Internship" in src:
+                doc_desc = "INTERNSHIP AGREEMENT (Harbour Space Institute - Data Science Internship)"
+            else:
+                doc_desc = f"Skills ({src})"
+                
+            context_blocks.append(f"[{doc_desc}] (Page {c['page']})\n{content}")
+
+        context_str = "\n\n".join(context_blocks)
+        
+        prompt = f"""
+        You are Brenda's warm, clever, and impeccably professional AI career assistant. Speak about Brenda in the 3rd person with high fidelity.
+
+        CRITICAL STRUCTURAL RULES:
+        1. NEVER output template placeholders like [Project Name], [GitHub Username], or [Hackathon Name]. If specific repository names are not in the context, name the explicit tools (e.g., Python, ChromaDB, Streamlit, Ollama, Tesseract OCR) or state: "I cannot find specific repository details in the loaded documents."
+        2. GITHUB PROJECTS: When asked about side projects or GitHub, discuss her actual repos (e.g., local RAG pipelines, OCR tools, data visualization apps). DO NOT default to ICT University unless discussing her degree.
+        3. NO HALLUCINATED METRICS: Use only exact facts provided in the text context.
+
+        Structure your analysis:
+        - **Where:** GitHub / Personal Development environment.
+        - **How:** Specific frameworks, libraries, and languages used in her repos.
+        - **Who:** Self-directed projects or open-source community contributions.
+        - **Why:** Skill acquisition, continuous learning, and mastering modern data engineering tools.
+
+        Context:
+        {context_str}
+
+        User Question: {query}
+
+        Answer:
+        """
+        
+        # 1. Safely retrieve Gemini API Key from Streamlit Secrets or Environment Variables
+        gemini_api_key = None
+        if hasattr(st, "secrets") and "GEMINI_API_KEY" in st.secrets:
+            gemini_api_key = st.secrets["GEMINI_API_KEY"]
+        elif os.getenv("GEMINI_API_KEY"):
+            gemini_api_key = os.getenv("GEMINI_API_KEY")
+
+        # 2. If Gemini Key is present, execute cloud request via Gemini REST API
+        if gemini_api_key:
+            print("\t\t\tUsing Gemini API fallback for cloud generation...")
+            try:
+                gemini_url = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key={gemini_api_key}"
+                gemini_payload = {
+                    "contents": [{"parts": [{"text": prompt}]}]
+                }
+                req = urllib.request.Request(
+                    gemini_url,
+                    data=json.dumps(gemini_payload).encode("utf-8"),
+                    headers={"Content-Type": "application/json"}
+                )
+                with urllib.request.urlopen(req, timeout=30) as response:
+                    res_data = json.loads(response.read().decode("utf-8"))
+                    candidates = res_data.get("candidates", [])
+                    if candidates:
+                        text_out = candidates[0].get("content", {}).get("parts", [{}])[0].get("text", "")
+                        if text_out:
+                            return text_out
+            except Exception as gemini_err:
+                print(f"Gemini API error: {gemini_err}")
+
+        # 3. Fallback to Local Ollama (Only used when running locally on your laptop)
+        payload = {
+            "model": LLM_MODEL,
+            "prompt": prompt,
+            "stream": False
+        }
+        
+        print(f"\t\t\tSending context and query endpoint to ({OLLAMA_ENDPOINT}) ...")
+        
+        try:
+            req = urllib.request.Request(
+                OLLAMA_ENDPOINT,
+                data=json.dumps(payload).encode("utf-8"),
+                headers={"Content-Type": "application/json"}
+            )
+            with urllib.request.urlopen(req, timeout=30) as response:
+                result = json.loads(response.read().decode("utf-8"))
+                return result.get("response", "No response generated.")
+        except Exception as e:
+            return (
+                f"Error connecting to LLM endpoint at {OLLAMA_ENDPOINT}: {e}\n\n"
+                f"Troubleshooting:\n"
+                f"1. Is Ollama running locally? (`ollama serve`)\n"
+                f"2. Have you added your GEMINI_API_KEY in Streamlit Cloud Secrets?"
+            )
+            
+            
 if __name__ == "__main__":
     # Test execution from command line
     engine = LocalRAGEngine()
