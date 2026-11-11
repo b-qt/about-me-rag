@@ -12,6 +12,7 @@ import json
 import urllib.request
 import chromadb 
 
+import streamlit as st
 
 from sentence_transformers import SentenceTransformer
 
@@ -192,7 +193,13 @@ class LocalRAGEngine:
 
         Answer:
         """
-        
+        # Check Streamlit Secrets first, then OS environment variables
+        gemini_api_key = None
+        if hasattr(st, "secrets") and "GEMINI_API_KEY" in st.secrets:
+            gemini_api_key = st.secrets["GEMINI_API_KEY"]
+        elif os.getenv("GEMINI_API_KEY"):
+            gemini_api_key = os.getenv("GEMINI_API_KEY")
+            
         # 1. Check if GEMINI_API_KEY is available in Streamlit Secrets (Cloud Environment)
         gemini_api_key = os.getenv("GEMINI_API_KEY")
         if gemini_api_key:
