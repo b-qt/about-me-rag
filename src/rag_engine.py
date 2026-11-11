@@ -109,30 +109,52 @@ class LocalRAGEngine:
 
         Answer:
         """
+        # 1. Try local Ollama first (for when you run it on your laptop)
         payload = {
             "model": LLM_MODEL,
-            "prompt":prompt,
+            "prompt": prompt,
             "stream": False
         }
-        
-        print(f"\t\t\tSending context and query endpoint to ({OLLAMA_ENDPOINT}) ...")
         
         try:
             req = urllib.request.Request(
                 OLLAMA_ENDPOINT,
-                data = json.dumps(payload).encode("utf-8"),
+                data=json.dumps(payload).encode("utf-8"),
                 headers={"Content-Type": "application/json"}
             )
-            with urllib.request.urlopen(req) as response:
+            with urllib.request.urlopen(req, timeout=5) as response:
                 result = json.loads(response.read().decode("utf-8"))
                 return result.get("response", "No response generated.")
-        except Exception as e:
-            return (
-                f"Error connecting to LLM endpoint at {OLLAMA_ENDPOINT}: {e}\n\n"
-                f"Troubleshooting:\n"
-                f"1. Is Ollama running locally? (`ollama serve`)\n"
-                f"2. Have you checked your .env configuration?"
-            )
+        except Exception:
+            # 2. Cloud Fallback: Use Hugging Face Transformers locally in the container
+            try:
+                from transformers import pipeline
+                import torch
+                
+                # Load a lightweight, fast model suitable for CPU cloud environments
+                generator = pipeline(
+                    "text-generation", 
+                    model="HuggingFaceTB/SmolLM-1.35B-Instruct", 
+                    torch_dtype=torch.float32,
+                    device=-1 # CPU mode
+                )
+                
+                outputs = generator(
+                    prompt, 
+                    max_new_tokens=300, 
+                    do_sample=True, 
+                    temperature=0.2,
+                    top_p=0.9
+                )
+                
+                generated_text = outputs[0]["generated_text"]
+                # Strip prompt echo if present
+                if prompt in generated_text:
+                    generated_text = generated_text.replace(prompt, "").strip()
+                return generated_text
+                
+            except Exception as hf_err:
+                return f"Error generating response on cloud backend: {hf_err}"
 
 
 if __name__ == "__main__":
