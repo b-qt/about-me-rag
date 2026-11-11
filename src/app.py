@@ -32,9 +32,10 @@ def get_rag_engine():
     
     # If the cloud instance has an empty collection, ingest the committed text files automatically ONCE
     if not engine.collection or engine.collection.count() == 0:
-        st.toast("⚡ Initializing knowledge base on cloud instance...")
+        #st.toast("⚡ Initializing knowledge base on cloud instance...")
         try:
             from ingestion import read_documents, SemanticSplitter, store_chunks_in_chromadb, MODEL_NAME
+            import uuid
             loaded_text = read_documents()
             if loaded_text:
                 chunker = SemanticSplitter(model_name=MODEL_NAME, distance_threshold_percentile=60.0)
@@ -55,7 +56,8 @@ def get_rag_engine():
                 # Re-fetch the collection after creation
                 engine.collection = engine.client.get_collection(name="academic_logs")
         except Exception as e:
-            st.error(f"Auto-ingestion failed: {e}")
+            #st.error(f"Auto-ingestion failed: {e}")
+            pass
             
     return engine
 
