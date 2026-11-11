@@ -2,10 +2,33 @@
 Username: b-qt
 Name: Tebid Quinsy
 Bio: Data scientist
-Public Repositories Count: 12
+Public Repositories Count: 13
 Profile URL: https://github.com/b-qt
 
 --- PUBLIC REPOSITORIES AND SIDE PROJECTS ---
+Project Name: about-me-rag
+Primary Language: Python
+Repository URL: https://github.com/b-qt/about-me-rag
+Project Description: A RAG to answer questions about my experience..
+README Summary:
+# 📚 Brenda's Resume & Career RAG Chatbot (Mind Map V2)
+
+An end-to-end, locally hosted Retrieval-Augmented Generation (RAG) system and Streamlit web application designed to query academic logs, official employment history, and targeted job roles with high precision.
+
+Powered by **ChromaDB**, **SentenceTransformers**, **Ollama (`llama3.2:1b`)**, and **Tesseract OCR**, this system uses a custom **Mind Map V2 (Where, How, Who, Why)** framework to eliminate cross-company hallucinations, segregate universities from workplaces, and deliver verifiable career analytics.
+
+---
+
+## 🌟 Key Features
+
+* **Local RAG Architecture:** 100% privacy-focused and running locally via Ollama (`llama3.2:1b`) and persistent ChromaDB vector storage.
+* **OCR Ingestion Pipeline:** Enhanced image preprocessing script (`image_converter.py`) utilizing 2x bicubic upscaling, low-DPI screen font optimization, contrast tuning, and continuous-line post-processing that preserves bullet structure (`*`, `©`, numeric lists).
+* **Semantic Document Chunking:** Custom `SemanticSplitter` leveraging sentence embedding cosine distances (`all-MiniLM-L6-v2`) to chunk text dynamically at natural semantic boundaries.
+* **Mind Map V2 Framework:** System prompt guardrails structured around:
+  * 🗺️ **Where:** Physical/virtual context (e.g., Remote in Spain, Harbour Space Institute, GIMAC-BEAC).
+  * 🛠️ **How:** Technical mechanics, data modeling, SQL/Python pipelines, and ETL orchestration.
+  * 👥 **Who:** Stakeholders, internationa
+----------------------------------------
 Project Name: b-qt
 Primary Language: Python / SQL
 Repository URL: https://github.com/b-qt/b-qt
