@@ -1,0 +1,10 @@
+private/
+.index/
+.env
+.streamlit/secrets.toml
+.git/
+**/__pycache__/
+.pytest_cache/
+.venv/
+venv/
+tests/

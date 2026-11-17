@@ -1,12 +1,17 @@
 services:
-  academiclogs:
+  about-me:
     build: .
-    container_name: academiclogs
-    #command: streamlit run app.py
+    container_name: about-me
     ports:
       - "8501:8501"
-    volumes:
-      - ./data:/app/data
-      - ./src:/app/src
+    env_file:
+      - path: .env
+        required: false
     environment:
+      # Ollama running on the host machine
       - OLLAMA_HOST=http://host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"   # needed on Linux
+    volumes:
+      # Edit knowledge/ without rebuilding; the index refreshes on the next page load
+      - ./knowledge:/app/knowledge:ro

@@ -1,0 +1,5 @@
+-r requirements.txt
+pytest==9.1.1
+# Only for scripts/ocr_images.py (also needs the tesseract-ocr system package)
+pytesseract
+pillow

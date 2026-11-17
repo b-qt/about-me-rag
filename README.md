@@ -1,143 +1,82 @@
-# 📚 Brenda's Resume & Career RAG Chatbot (Mind Map V2)
+# About Brenda: a boxed career assistant (Mind Map V2)
 
-An end-to-end, locally hosted Retrieval-Augmented Generation (RAG) system and Streamlit web application designed to query academic logs, official employment history, and targeted job roles with high precision.
+A Streamlit app that answers questions about Quinsy Brenda Tebid's studies, roles, results and side projects **only from documents she provides**, and shows her career as metrics and a Where / How / Who / Why mind map.
 
-Powered by **ChromaDB**, **SentenceTransformers**, **Ollama (`llama3.2:1b`)**, and **Tesseract OCR**, this system uses a custom **Mind Map V2 (Where, How, Who, Why)** framework to eliminate cross-company hallucinations, segregate universities from workplaces, and deliver verifiable career analytics.
+- **Ask**: chat with cited sources. Career questions are answered as a Mind Map; factual questions get a direct answer. Saved job postings are used only for "fit" questions and are always labelled *not past work*.
+- **Growth**: years active, organisations, countries, a timeline, seniority steps, toolset growth, measurable results, side projects.
+- **Mind Map**: every role and degree as Where / How / Who / Why, with a button to ask the assistant about it.
 
----
+It's retrieval-augmented generation (RAG), not a trained model: the LLM writes answers but may only use the passages retrieved from `knowledge/` plus the structured timeline, and must say so when something isn't covered.
 
-## 🌟 Key Features
-
-* **Local RAG Architecture:** 100% privacy-focused and running locally via Ollama (`llama3.2:1b`) and persistent ChromaDB vector storage.
-* **OCR Ingestion Pipeline:** Enhanced image preprocessing script (`image_converter.py`) utilizing 2x bicubic upscaling, low-DPI screen font optimization, contrast tuning, and continuous-line post-processing that preserves bullet structure (`*`, `©`, numeric lists).
-* **Semantic Document Chunking:** Custom `SemanticSplitter` leveraging sentence embedding cosine distances (`all-MiniLM-L6-v2`) to chunk text dynamically at natural semantic boundaries.
-* **Mind Map V2 Framework:** System prompt guardrails structured around:
-  * 🗺️ **Where:** Physical/virtual context (e.g., Remote in Spain, Harbour Space Institute, GIMAC-BEAC).
-  * 🛠️ **How:** Technical mechanics, data modeling, SQL/Python pipelines, and ETL orchestration.
-  * 👥 **Who:** Stakeholders, international policy-makers, and collaborating research/engineering teams.
-  * 🎯 **Why:** Measurable business impact, system reliability improvements, and strategic transformations.
-* **Domain Segregation & Anti-Hallucination Guardrails:** Strict prompt partitioning separating official resume history (Emerging Engineering, UNDP, GIMAC-BEAC), academic institutions, and interview target roles (Sagaci Research, Pillar, Air Apps).
-
----
-
-## 🛠️ Tech Stack
-
-* **UI & Frontend:** Streamlit
-* **Vector Database:** ChromaDB (`PersistentClient`)
-* **Embedding Model:** `SentenceTransformers` (`all-MiniLM-L6-v2`)
-* **Local LLM Orchestration:** Ollama (`llama3.2:1b`) via HTTP REST API
-* **OCR & Document Processing:** PyTesseract, Pillow (`PIL`), PyPDF (`PdfReader`)
-* **Languages & Analytics:** Python 3.10+, SQL, NumPy, Regex
-
----
-
-## 📁 Repository Structure
+## How it works
 
 ```text
-├── data/                         # Knowledge base directory (PDFs, TXT, OCR outputs)
-│   └── chroma_db/                # Local ChromaDB persistent vector database (Git ignored)
-├── src/
-│   ├── app.py                    # Main Streamlit web application & session state handler
-│   ├── rag_engine.py             # ChromaDB retriever & Ollama generation prompt engine
-│   ├── ingestion.py              # ETL pipeline reading documents into ChromaDB
-│   ├── semantic_splitter.py      # Cosine similarity-based semantic sentence chunker
-│   ├── image_converter.py        # Tesseract OCR converter (PNG/JPG -> Clean formatted TXT)
-│   └── github_scraper.py         # REST API scraper pulling profile & repository READMEs
-├── .gitignore                    # Excludes vector DB, cache files, and credentials
-├── requirements.txt              # Dependencies
-└── README.md                     # Project documentation
+knowledge/ ──► loaders ──► chunking (headings → semantic split → context headers)
+                                │
+                                ▼
+               ChromaDB (all-MiniLM-L6-v2 via ONNX)  +  BM25 keyword index
+                                │   hybrid search, type quotas, job-posting routing
+                                ▼
+       timeline.csv + top passages ──► Gemini (hosted) / Ollama (local) ──► answer + sources
 ```
 
-## 🚀 Getting Started
+## Project layout
 
-### Prerequisites
-
-1. **Python 3.10+** installed on your system.
-2. **Tesseract OCR Engine** installed locally:
-* **Linux (Ubuntu/Debian):** `sudo apt-get install tesseract-ocr`
-* **macOS:** `brew install tesseract`
-
-
-3. **Ollama** installed and running with `llama3.2:1b`:
-```bash
-ollama pull llama3.2:1b
-ollama serve
+```text
+streamlit_app.py        entry point (multipage navigation)
+app/                    chat.py · growth.py · mind_map.py · common.py
+src/aboutme/            config · loaders · chunking · embeddings · index · retrieval · prompts · llm · assistant · timeline
+knowledge/              the only content the assistant can see (see knowledge/README.md)
+private/                originals: resume with contact details, offer letters, screenshots (git-ignored)
+scripts/                build_index.py · ask.py · ocr_images.py · fetch_github.py
+tests/                  golden questions, privacy check, timeline validation, LLM client
 ```
 
-
-
-### Installation
-
-1. **Clone the repository:**
-```bash
-git clone [https://github.com/b-qt/YOUR_REPOSITORY_NAME.git](https://github.com/b-qt/YOUR_REPOSITORY_NAME.git)
-cd YOUR_REPOSITORY_NAME
-```
-
-
-2. **Create and activate a virtual environment:**
-```bash
-python -m venv venv
-source venv/bin/activate  # On Windows use: venv\Scripts\activate
-
-```
-
-
-3. **Install dependencies:**
-```bash
-pip install -r requirements.txt
-```
-
-
-
----
-
-## ⚙️ Running the Pipeline
-
-### Step 1: Preprocess Screenshots & OCR (Optional)
-
-Convert document screenshots (PNG/JPG) into continuous-formatted `.txt` files in `./data/`:
+## Run locally
 
 ```bash
-python src/image_converter.py
+python -m venv .venv && source .venv/bin/activate
+pip install -r requirements-dev.txt
+cp .env.example .env            # add GEMINI_API_KEY, or run Ollama:
+ollama pull llama3.2:1b && ollama serve
+streamlit run streamlit_app.py
 ```
 
-### Step 2: Fetch GitHub Repositories Snapshot (Optional)
+The index builds itself on first run and again whenever anything in `knowledge/` changes. The first run downloads the ~80 MB embedding model.
 
-Generate a clean snapshot of public GitHub profile metadata and project READMEs:
+Useful commands:
 
 ```bash
-python src/github_scraper.py
+python scripts/build_index.py --query "What did she achieve at GIMAC-BEAC?"   # check retrieval
+python scripts/ask.py "Map her career using Where, How, Who and Why"            # full answer in the terminal
+pytest                                                                          # offline tests
 ```
 
-### Step 3: Run Document Ingestion
+`llama3.2:1b` is fast but follows the Mind Map format loosely; `llama3.2:3b` or larger gives noticeably better answers if your machine can run it (set `OLLAMA_MODEL`).
 
-Load, chunk, embed, and store all documents inside ChromaDB:
+## Deploy publicly (Streamlit Community Cloud)
+
+1. Check `private/` is not committed (`git status` should not list anything in it except `private/README.md`), then push to GitHub. A private repo works.
+2. On share.streamlit.io: **Create app** → pick the repo → main file `streamlit_app.py` → Advanced settings → Python 3.12.
+3. In **Secrets**, paste the contents of `.streamlit/secrets.toml.example` with your real `GEMINI_API_KEY` (from aistudio.google.com).
+4. Deploy. The first boot downloads the embedding model and builds the index (about a minute).
+5. Smoke test: "Where did she do her master's?", "Did she work at Air Apps?" (correct answer: no, it's a saved posting), and the Career map button.
+
+If `GEMINI_MODEL` is ever retired, the app says so in the chat. Update the secret with a current model from Google's deprecations page.
+
+## Docker
 
 ```bash
-python src/ingestion.py
+docker compose up --build        # uses Ollama on the host, or GEMINI_API_KEY from .env
 ```
 
-### Step 4: Launch the Web UI
+## Updating the content
 
-Start the Streamlit web application:
+- New role or degree: add a row to `knowledge/timeline.csv` and a markdown file in `knowledge/experience/` or `knowledge/education/` with `timeline_id: <row id>` in the front matter.
+- New side project: add a row to `knowledge/projects.csv`; optionally a longer write-up in `knowledge/projects/`.
+- New job posting: OCR it with `scripts/ocr_images.py`, clean it up, save it in `knowledge/targets/` with `org:` in the front matter.
+- Run `pytest` before pushing: it fails if a phone number, email, salary or signature block slipped into `knowledge/`.
 
-```bash
-streamlit run src/app.py
-```
+## License
 
----
-
-## 🧠 Mind Map V2 Query Examples
-
-Once the application is running, click the quick-action sidebar buttons or query the chatbot directly:
-
-* **Career Evolution:** *"Give me a summary of Brenda's career evolution using the Where, How, Who, and Why framework."*
-* **Quantifiable Impact:** *"What measurable transformations and system reliability improvements has Brenda delivered across her roles?"*
-* **Role Alignment:** *"How does Brenda's data engineering background map to product data analyst requirements at target companies?"*
-
----
-
-## 📝 License
-
-Distributed under the MIT License. See `LICENSE` for more information.
+MIT for the code (see LICENSE). The content of `knowledge/` describes a real person and is not licensed for reuse.
