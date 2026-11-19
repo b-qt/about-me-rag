@@ -11,11 +11,18 @@ from aboutme.timeline import load_timeline
 
 
 def test_provider_resolution(monkeypatch):
-    assert llm.resolve_provider() == "ollama"
+    assert llm.resolve_providers() == ["ollama"]
     monkeypatch.setenv("GEMINI_API_KEY", "test-key")
-    assert llm.resolve_provider() == "gemini"
+    assert llm.resolve_providers() == ["gemini"]
+    monkeypatch.setenv("GROQ_API_KEY", "groq-key")
+    assert llm.resolve_providers() == ["gemini", "openai"]
+    monkeypatch.setenv("LLM_PROVIDER", "groq, gemini")
+    assert llm.resolve_providers() == ["openai", "gemini"]
     monkeypatch.setenv("LLM_PROVIDER", "ollama")
-    assert llm.resolve_provider() == "ollama"
+    assert llm.resolve_providers() == ["ollama"]
+    monkeypatch.setenv("LLM_PROVIDER", "chatgpt")
+    with pytest.raises(llm.LLMError, match="Unknown LLM_PROVIDER"):
+        llm.resolve_providers()
 
 
 def test_legacy_ollama_endpoint(monkeypatch):
@@ -125,3 +132,90 @@ def test_fit_evidence_covers_every_role_and_degree(retriever):
     assert set(lt()["id"]) <= linked, "every timeline row should contribute evidence"
     assert len(ids) == len(set(ids)) or all(i.startswith("profile/") for i in ids if ids.count(i) > 1)
     assert any(h.meta.get("section") == "Technical skills" for h in evidence)
+
+
+
+class Script:
+    """Fake urlopen that plays back a list of (status, body) responses and records requests."""
+
+    def __init__(self, *responses):
+        self.responses = list(responses)
+        self.requests = []
+
+    def __call__(self, request, timeout):
+        self.requests.append((request.full_url, dict(request.header_items()), json.loads(request.data)))
+        status, body = self.responses.pop(0)
+        if status != 200:
+            raise urllib.error.HTTPError(request.full_url, status, "err", {}, io.BytesIO(json.dumps(body).encode()))
+        return FakeResponse(json.dumps(body).encode())
+
+
+GEMINI_OK = {"candidates": [{"content": {"parts": [{"text": "Gemini answer"}]}}]}
+GROQ_OK = {"choices": [{"message": {"content": "Groq answer"}}]}
+BUSY = {"error": {"message": "The model is overloaded. Please try again later."}}
+
+
+def test_gemini_retries_a_503_then_succeeds(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
+    script = Script((503, BUSY), (503, BUSY), (200, GEMINI_OK))
+    monkeypatch.setattr(llm.urllib.request, "urlopen", script)
+    assert llm.generate("s", "u").text == "Gemini answer"
+    assert len(script.requests) == 3
+
+
+def test_gemini_fallback_model_after_persistent_503(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
+    monkeypatch.setenv("GEMINI_MODEL", "main-model")
+    monkeypatch.setenv("GEMINI_FALLBACK_MODELS", "backup-model")
+    script = Script((503, BUSY), (503, BUSY), (503, BUSY), (200, GEMINI_OK))
+    monkeypatch.setattr(llm.urllib.request, "urlopen", script)
+    reply = llm.generate("s", "u")
+    assert reply.model == "backup-model"
+    assert "backup-model:generateContent" in script.requests[-1][0]
+
+
+def test_falls_back_to_groq_when_gemini_stays_busy(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
+    monkeypatch.setenv("GROQ_API_KEY", "groq-key")
+    script = Script((503, BUSY), (503, BUSY), (503, BUSY), (200, GROQ_OK))
+    monkeypatch.setattr(llm.urllib.request, "urlopen", script)
+    reply = llm.generate("system text", "user text")
+    assert (reply.text, reply.provider, reply.model) == ("Groq answer", "groq", "llama-3.1-8b-instant")
+    url, headers, body = script.requests[-1]
+    assert url == "https://api.groq.com/openai/v1/chat/completions"
+    assert headers["Authorization"] == "Bearer groq-key"
+    assert body["messages"][0] == {"role": "system", "content": "system text"}
+
+
+def test_bad_key_is_not_retried_but_still_falls_back(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "wrong")
+    monkeypatch.setenv("GROQ_API_KEY", "groq-key")
+    script = Script((403, {"error": {"message": "denied"}}), (200, GROQ_OK))
+    monkeypatch.setattr(llm.urllib.request, "urlopen", script)
+    assert llm.generate("s", "u").text == "Groq answer"
+    assert len(script.requests) == 2
+
+
+def test_all_providers_down_reports_each(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
+    monkeypatch.setenv("GROQ_API_KEY", "g")
+    monkeypatch.setattr(llm.urllib.request, "urlopen", Script(*[(503, BUSY)] * 6))
+    with pytest.raises(llm.LLMError, match=r"No model could answer.*Gemini is busy.*groq is busy"):
+        llm.generate("s", "u")
+
+
+def test_ollama_cloud_sends_api_key(monkeypatch):
+    monkeypatch.setenv("OLLAMA_HOST", "https://ollama.com")
+    monkeypatch.setenv("OLLAMA_API_KEY", "ollama-key")
+    monkeypatch.setenv("OLLAMA_MODEL", "gpt-oss:20b")
+    script = Script((200, {"message": {"content": "Ollama answer"}}))
+    monkeypatch.setattr(llm.urllib.request, "urlopen", script)
+    assert llm.generate("s", "u").text == "Ollama answer"
+    url, headers, _ = script.requests[0]
+    assert url == "https://ollama.com/api/chat" and headers["Authorization"] == "Bearer ollama-key"
+
+
+def test_describe_shows_the_chain(monkeypatch):
+    monkeypatch.setenv("GEMINI_API_KEY", "k")
+    monkeypatch.setenv("GROQ_API_KEY", "g")
+    assert llm.describe() == "gemini · gemini-3.6-flash → groq · llama-3.1-8b-instant"

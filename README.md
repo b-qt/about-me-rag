@@ -17,7 +17,7 @@ knowledge/ ──► loaders ──► chunking (headings → semantic split →
                ChromaDB (all-MiniLM-L6-v2 via ONNX)  +  BM25 keyword index
                                 │   hybrid search, type quotas, job-posting routing
                                 ▼
-       timeline.csv + top passages ──► Gemini (hosted) / Ollama (local) ──► answer + sources
+       timeline.csv + top passages ──► Gemini → Groq (hosted) / Ollama (local) ──► answer + sources
 ```
 
 ## Project layout
@@ -58,11 +58,15 @@ pytest                                                                          
 
 1. Check `private/` is not committed (`git status` should not list anything in it except `private/README.md`), then push to GitHub. A private repo works.
 2. On share.streamlit.io: **Create app** → pick the repo → main file `streamlit_app.py` → Advanced settings → Python 3.12.
-3. In **Secrets**, paste the contents of `.streamlit/secrets.toml.example` with your real `GEMINI_API_KEY` (from aistudio.google.com).
+3. In **Secrets**, paste the contents of `.streamlit/secrets.toml.example` with your real keys. Use at least one of `GEMINI_API_KEY` (aistudio.google.com) and `GROQ_API_KEY` (console.groq.com, free tier with hosted Llama models). With both, Gemini answers first and Groq takes over whenever Gemini is busy.
 4. Deploy. The first boot downloads the embedding model and builds the index (about a minute).
 5. Smoke test: "Where did she do her master's?", "Did she work at Air Apps?" (correct answer: no, it's a saved posting), and the Career map button.
 
-If `GEMINI_MODEL` is ever retired, the app says so in the chat. Update the secret with a current model from Google's deprecations page.
+### When a model is busy or retired
+
+Each provider retries busy (503), rate-limited (429) and timeout errors twice with a short backoff, then the next configured provider answers. The caption under each answer shows which model replied, and the sidebar shows the whole chain. If every provider fails, the chat says why and shows the matching passages instead. If a model is retired, update `GEMINI_MODEL` or `OPENAI_COMPAT_MODEL` in Secrets.
+
+Your local Ollama model can't run on Streamlit Community Cloud: there is no way to run the Ollama server there, and free apps have too little memory. To use Llama in the public app, use Groq. To use a model on your own computer, expose your Ollama behind an authenticated tunnel and set `OLLAMA_HOST` and `OLLAMA_API_KEY`; the app is then down whenever your computer is. Ollama Cloud also works (`OLLAMA_HOST = "https://ollama.com"`, `OLLAMA_API_KEY`, and one of its cloud models).
 
 ## Docker
 

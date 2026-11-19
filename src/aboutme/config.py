@@ -47,6 +47,8 @@ def setting(name: str, default: str | None = None) -> str | None:
     value = os.getenv(name)
     if value:
         return value
+    if os.getenv("ABOUTME_IGNORE_SECRETS"):
+        return default if default is not None else DEFAULTS.get(name)
     try:
         import streamlit as st
 
