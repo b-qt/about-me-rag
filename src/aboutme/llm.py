@@ -128,8 +128,14 @@ def describe() -> str:
 
 def _post_json(url: str, payload: dict, headers: dict, timeout: int) -> dict:
     request = urllib.request.Request(
-        url, data=json.dumps(payload).encode("utf-8"),
-        headers={"Content-Type": "application/json", **headers}, method="POST",
+        url,
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Content-Type": "application/json",
+            "User-Agent": "about-me-rag/1.0",
+            **headers,
+        },
+        method="POST",
     )
     with urllib.request.urlopen(request, timeout=timeout) as response:
         return json.loads(response.read().decode("utf-8"))
@@ -167,8 +173,10 @@ def _permanent_error(name: str, code: int, detail: str, model: str | None) -> LL
     if code == 404:
         setting_name = {"Gemini": "GEMINI_MODEL", "Ollama": "OLLAMA_MODEL"}.get(name, "OPENAI_COMPAT_MODEL")
         return LLMError(f"{name}: model '{model}' was not found. Set {setting_name} to a current model. ({detail[:160]})")
-    if code in (401, 403):
-        return LLMError(f"{name}: the API key was rejected. Check it in the app's secrets.")
+    if code == 401:
+        return LLMError(f"{name}: the API key was rejected (401). Check it in the app's secrets.")
+    if code == 403:
+        return LLMError(f"{name}: request forbidden (403). ({detail[:160]})")
     return LLMError(f"{name} returned an error ({code}): {detail[:200]}")
 
 
