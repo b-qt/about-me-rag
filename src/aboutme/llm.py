@@ -60,9 +60,16 @@ def openai_key() -> str | None:
 def openai_base() -> str:
     return (setting("OPENAI_COMPAT_BASE_URL") or DEFAULT_OPENAI_BASE).rstrip("/")
 
+def openai_models() -> list[str]:
+    raw = setting("OPENAI_COMPAT_MODEL") or DEFAULT_OPENAI_MODEL
+    models = [m.strip() for m in raw.split(",") if m.strip()]
+    extra = [m.strip() for m in (setting("OPENAI_COMPAT_FALLBACK_MODELS") or "").split(",") if m.strip()]
+    combined = models + [m for m in extra if m not in models]
+    return combined or [DEFAULT_OPENAI_MODEL]
+
 
 def openai_model() -> str:
-    return setting("OPENAI_COMPAT_MODEL") or DEFAULT_OPENAI_MODEL
+    return openai_models()[0] or DEFAULT_OPENAI_MODEL
 
 
 def openai_label() -> str:
@@ -165,7 +172,7 @@ def _permanent_error(name: str, code: int, detail: str, model: str | None) -> LL
     return LLMError(f"{name} returned an error ({code}): {detail[:200]}")
 
 
-# --- providers ----------------------------------------------------------------
+# --- providers -------------------------------------------------------------
 
 def gemini(system: str, user: str, temperature: float) -> Reply:
     key = setting("GEMINI_API_KEY")
@@ -196,7 +203,7 @@ def gemini(system: str, user: str, temperature: float) -> Reply:
     raise last or LLMError("No Gemini model configured.")
 
 
-def openai_compatible(system: str, user: str, temperature: float) -> Reply:
+def openai_compatible__OLD(system: str, user: str, temperature: float) -> Reply:
     key, model, label = openai_key(), openai_model(), openai_label()
     if not key:
         raise LLMError("OPENAI_COMPAT_API_KEY (or GROQ_API_KEY) is not set.")
@@ -212,6 +219,28 @@ def openai_compatible(system: str, user: str, temperature: float) -> Reply:
         raise LLMError(f"{label} returned an empty answer.")
     return Reply(text, label, model)
 
+def openai_compatible(system: str, user: str, temperature: float) -> Reply:
+    key, label = openai_key(), openai_label()
+    if not key:
+        raise LLMError("OPENAI_COMPAT_API_KEY (or GROQ_API_KEY) is not set.")
+    last: LLMError | None = None
+    for model in openai_models():
+        try:
+            data = _post_with_retry(
+                label, f"{openai_base()}/chat/completions",
+                {"model": model, "temperature": temperature, "max_tokens": 2048,
+                 "messages": [{"role": "system", "content": system}, {"role": "user", "content": user}]},
+                {"Authorization": f"Bearer {key}"}, timeout=60,
+            )
+        except LLMError as err:
+            last = err
+            continue
+        choices = data.get("choices") or []
+        text = ((choices[0].get("message") or {}).get("content") or "").strip() if choices else ""
+        if text:
+            return Reply(text, label, model)
+        last = LLMError(f"{label} returned an empty answer.")
+    raise last or LLMError(f"No {label} model configured.")
 
 def ollama(system: str, user: str, temperature: float) -> Reply:
     host, model = ollama_host(), setting("OLLAMA_MODEL")
